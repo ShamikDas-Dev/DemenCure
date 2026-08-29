@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DemenCure - Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+    <div class="dashboard-page">
+
+        <!-- =========================
+             NAVBAR
+        ========================== -->
+
+        <header class="dashboard-navbar">
+
+            <!-- Logo -->
+            <div class="dashboard-logo">
+
+                <div class="dashboard-logo-icon">
+                    <img src="images/logo.png" alt="DemenCure Logo">
+                </div>
+
+                <span>DemenCure</span>
+
+            </div>
+
+
+            <!-- User -->
+            <div class="user-area">
+
+                <div class="user-avatar" id="userAvatar">
+                    U
+                </div>
+
+                <div class="user-info">
+                    <strong id="userName">
+                        Loading...
+                    </strong>
+                </div>
+
+                <button class="logout-button" id="logoutButton" type ="button" title="Logout">
+                    ↪
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             MAIN CONTENT
+        ========================== -->
+
+        <main class="dashboard-content">
+
+
+            <!-- Welcome -->
+
+            <section class="dashboard-welcome">
+
+                <div>
+
+                    <p class="welcome-label">
+                        YOUR PERSONAL SPACE
+                    </p>
+
+                    <h1 id="greeting"></h1>
+
+                    <script>
+                        const hour = new Date().getHours();
+
+                        if (hour >= 5 && hour < 12) {
+                            document.getElementById("greeting").textContent = "Good morning";
+                        }
+                        else if (hour >= 12 && hour < 17) {
+                            document.getElementById("greeting").textContent = "Good afternoon";
+                        }
+                        else if (hour >= 17 && hour < 21) {
+                            document.getElementById("greeting").textContent = "Good evening";
+                        }
+                        else {
+                            document.getElementById("greeting").textContent = "Good night";
+                        }
+                    </script>
+                    <p class="welcome-description">
+                        What would you like to do today?
+                    </p>
+
+                </div>
+
+
+                <div class="welcome-decoration">
+                    🧠
+                </div>
+
+            </section>
+
+            <!-- =========================
+     PROFILE
+========================== -->
+
+            <section class="profile-section">
+
+                <div class="profile-card">
+
+                    <!-- Decorative background -->
+                    <div class="profile-glow"></div>
+
+                    <!-- Profile Header -->
+                    <div class="profile-header">
+
+                        <div class="profile-avatar-large" id="profileAvatar">
+                            U
+                        </div>
+
+                        <div class="profile-title">
+
+                            <span>YOUR PROFILE</span>
+
+                            <h2 id="profileName">
+                                Loading...
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Profile Details -->
+
+                    <div class="profile-details">
+
+                        <div class="profile-detail">
+
+                            <span class="detail-icon">✉</span>
+
+                            <div>
+                                <small>Email Address</small>
+                                <strong id="profileEmail">
+                                    Loading...
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-detail">
+
+                            <span class="detail-icon">🎂</span>
+
+                            <div>
+                                <small>Age</small>
+                                <strong id="profileAge">
+                                    Loading...
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+
+            </section>
+
+            <!-- =========================
+     QUICK ACTIONS
+========================== -->
+
+            <section>
+
+                <div class="section-heading">
+                    <div>
+                        <h2>Today's activities</h2>
+                        <p>Choose something you'd like to do</p>
+                    </div>
+                </div>
+
+
+                <div class="dashboard-grid">
+
+                    <!-- Memory Recall -->
+                    <a href="memory-game.html" class="dashboard-card game-card"
+                        style="text-decoration: none; color: inherit;">
+
+                        <div class="card-icon purple-icon">
+                            🧠
+                        </div>
+
+                        <div class="card-content">
+
+                            <h3>
+                                Memory Recall
+                            </h3>
+
+                            <p>
+                                Exercise your memory by remembering familiar objects.
+                            </p>
+
+                        </div>
+
+                        <span class="card-button">
+                            Play Now
+                            <span>→</span>
+                        </span>
+
+                    </a>
+
+                    <div class="dashboard-card">
+
+                        <div class="card-icon green-icon">
+                            🔢
+                        </div>
+
+                        <h3>
+                            Sequence Recall
+                        </h3>
+
+                        <p>
+                            Remember the order of objects and select them correctly.
+                        </p>
+
+                        <a href="sequence-game.html" class="card-button"">
+                            Play Now →
+                        </a>
+
+                    </div>
+
+
+                    <!-- Reminders -->
+                    <div class=" dashboard-card">
+
+                            <div class="card-icon green-icon">
+                                💧
+                            </div>
+
+                            <div class="card-content">
+
+                                <h3>
+                                    Reminders
+                                </h3>
+
+                                <p>
+                                    Keep track of medicines, water and important activities.
+                                </p>
+
+                            </div>
+
+                            <button">
+                                <a href="reminder.html" class="card-button">
+                                    View Reminders →
+                                </a>
+                                <span></span>
+                                </button>
+
+                    </div>
+
+
+                    <div class="quick-action">
+
+                        <div class="quick-action-icon">
+
+                        </div>
+
+                        <!-- My Progress -->
+                        <div class="dashboard-card">
+
+                            <div class="card-icon progress-icon">
+                                📊
+                            </div>
+
+                            <h3>
+                                My Progress
+                            </h3>
+
+                            <p>
+                                View your cognitive activity and game performance.
+                            </p>
+
+                            <a href="progress.html" class="card-button">
+                                View Progress
+                                <span>→</span>
+                            </a>
+
+                        </div>
+            </section>
+
+            <!-- =========================
+     END OF QUICK ACTIONS
+========================== -->
+
+
+
+            <!-- =========================
+                 MOTIVATION
+            ========================== -->
+
+            <section class="daily-message">
+
+                <div class="message-icon">
+                    💜
+                </div>
+
+                <div>
+
+                    <h3>
+                        Every little step counts.
+                    </h3>
+
+                    <p>
+                        Take your time. There is no need to rush.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <footer class="dashboard-footer">
+
+            <span>
+                © 2026 DemenCure
+            </span>
+
+            <span>
+                Cognitive assistance platform
+            </span>
+
+        </footer>
+
+    </div>
+
+
+    <script type="module" src="app.js"></script>
+
+</body>
+
+</html>

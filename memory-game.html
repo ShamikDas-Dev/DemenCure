@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DemenCure - Memory Recall</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(120, 100, 255, 0.12), transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(180, 100, 255, 0.12), transparent 30%),
+                #f5f6fb;
+            color: #14213d;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            height: 82px;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            border-bottom: 1px solid #eeeeee;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            object-fit: cover;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            background: #f2f3f8;
+            color: #5146e5;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #e8e7ff;
+            transform: translateY(-2px);
+        }
+
+        /* ================= MAIN ================= */
+
+        main {
+            width: min(1100px, 92%);
+            margin: 50px auto;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+
+            padding: 45px;
+            border-radius: 28px;
+
+            background:
+                linear-gradient(135deg,
+                    #4338ca,
+                    #5b4de8,
+                    #8b5cf6);
+
+            color: white;
+
+            box-shadow:
+                0 20px 50px rgba(82, 70, 229, 0.22);
+
+            margin-bottom: 30px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            right: -70px;
+            top: -100px;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            left: -70px;
+            bottom: -100px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .eyebrow {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            opacity: 0.8;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            opacity: 0.9;
+            line-height: 1.6;
+            max-width: 650px;
+        }
+
+        /* ================= GAME CARD ================= */
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: 0 15px 45px rgba(20, 33, 61, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .game-status {
+            text-align: center;
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .timer {
+            font-size: 18px;
+            font-weight: 700;
+            color: #5948e8;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* ================= OBJECTS ================= */
+
+        .objects {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 18px;
+            margin: 30px 0;
+        }
+
+        .object {
+            min-height: 140px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 60px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(145deg,
+                    #f5f3ff,
+                    #ffffff);
+
+            border: 2px solid #e6e2ff;
+
+            box-shadow:
+                0 8px 20px rgba(80, 70, 200, 0.08);
+
+            transition: 0.2s;
+        }
+
+        .object:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 12px 25px rgba(80, 70, 200, 0.14);
+        }
+
+        /* ================= ANSWERS ================= */
+
+        .answer-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .answer {
+            min-height: 120px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 50px;
+
+            background: white;
+
+            border: 2px solid #e4e4ef;
+
+            border-radius: 20px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .answer:hover {
+            border-color: #6957ed;
+            transform: translateY(-3px);
+        }
+
+        .answer.selected {
+            border-color: #5b4de8;
+
+            background:
+                linear-gradient(135deg,
+                    #eeebff,
+                    #f8f7ff);
+
+            box-shadow:
+                0 0 0 3px rgba(91, 77, 232, 0.12);
+        }
+
+        /* ================= BUTTON ================= */
+
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+
+            padding: 15px 35px;
+
+            border-radius: 14px;
+
+            font-size: 16px;
+            font-weight: 700;
+
+            color: white;
+
+            background:
+                linear-gradient(135deg,
+                    #4f46e5,
+                    #7c3aed);
+
+            box-shadow:
+                0 10px 25px rgba(79, 70, 229, 0.25);
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 14px 30px rgba(79, 70, 229, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ================= RESULT ================= */
+
+        .result {
+            text-align: center;
+            padding: 35px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(135deg,
+                    #f4f2ff,
+                    #ffffff);
+
+            margin-top: 30px;
+        }
+
+        .result h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .score {
+            font-size: 55px;
+            font-weight: 800;
+            color: #5948e8;
+            margin: 15px 0;
+        }
+
+        .accuracy {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 800px) {
+
+            header {
+                height: 70px;
+                padding: 0 20px;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            main {
+                width: 94%;
+                margin: 30px auto;
+            }
+
+            .hero {
+                padding: 30px 25px;
+            }
+
+            .game-card {
+                padding: 25px 18px;
+            }
+
+            .objects,
+            .answer-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .object {
+                min-height: 110px;
+                font-size: 48px;
+            }
+
+            .answer {
+                min-height: 100px;
+                font-size: 42px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .back-btn {
+                padding: 9px 12px;
+                font-size: 13px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .objects,
+            .answer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .object {
+                min-height: 100px;
+                font-size: 45px;
+            }
+
+            .answer {
+                min-height: 95px;
+                font-size: 40px;
+            }
+
+            .game-card {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <div class="brand">
+
+            <!-- CHANGE logo.png TO YOUR LOGO FILE -->
+            <img src="images/logo.png" alt="DemenCure Logo" class="logo">
+
+            <span>DemenCure</span>
+
+        </div>
+
+        <a href="dashboard.html" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    COGNITIVE ACTIVITY
+                </div>
+
+                <h1>
+                    Memory Recall
+                </h1>
+
+                <p>
+                    Remember the objects shown to you.
+                    After they disappear, select the objects
+                    you remember seeing.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- GAME -->
+
+        <section class="game-card">
+
+            <div class="game-status" id="status">
+                Click "Start Game" when you're ready.
+            </div>
+
+            <div class="timer" id="timer"></div>
+
+
+            <!-- OBJECTS SHOWN DURING MEMORY PHASE -->
+
+            <div class="objects" id="objects"></div>
+
+
+            <!-- ANSWERS -->
+
+            <div class="answer-grid hidden" id="answers"></div>
+
+
+            <!-- BUTTON -->
+
+            <div class="button-container">
+
+                <button id="startButton" onclick="startGame()">
+                    Start Game
+                </button>
+
+                <button id="submitButton" class="hidden" onclick="submitGame()">
+                    Submit Answer
+                </button>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div class="result hidden" id="result">
+
+                <h2>
+                    Your Result
+                </h2>
+
+                <div class="score" id="score">
+                    0 / 5
+                </div>
+
+                <div class="accuracy" id="accuracy">
+                    Accuracy: 0%
+                </div>
+
+                <br>
+
+                <button onclick="location.href='dashboard.html'">
+                    Back to Dashboard →
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FIREBASE ================= -->
+
+    <script type="module">
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+        import {
+            getAuth,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+        import {
+            getFirestore,
+            collection,
+            addDoc,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+        /* ================= FIREBASE CONFIG ================= */
+
+        const firebaseConfig = {
+            apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+            authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+            projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+            storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+            messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+            appId: import.meta.env.VITE_FIREBASE_APP_ID
+        };
+
+
+        /* ================= INITIALIZE ================= */
+
+        const app = initializeApp(firebaseConfig);
+
+        const auth = getAuth(app);
+
+        const db = getFirestore(app);
+
+
+        /* ================= CURRENT USER ================= */
+
+        let currentUser = null;
+
+        onAuthStateChanged(auth, (user) => {
+
+            if (!user) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            currentUser = user;
+
+            console.log("Logged in user:", currentUser.uid);
+        });
+
+        /* ================= GAME DATA ================= */
+
+        const allObjects = [
+
+            "🔑",
+            "📱",
+            "☕",
+            "📚",
+            "⌚",
+            "🎧",
+            "🍎",
+            "🕶️",
+            "🔔",
+            "🎒"
+
+        ];
+
+
+        let selectedObjects = [];
+
+        let correctObjects = [];
+
+        let gameStarted = false;
+
+
+        /* ================= START GAME ================= */
+
+        window.startGame = function () {
+
+            if (!currentUser) {
+
+                alert("Please wait for login to load.");
+
+                return;
+            }
+
+
+            gameStarted = true;
+
+            selectedObjects = [];
+
+
+            /* Hide previous result */
+
+            document
+                .getElementById("result")
+                .classList.add("hidden");
+
+
+            document
+                .getElementById("answers")
+                .classList.add("hidden");
+
+
+            document
+                .getElementById("submitButton")
+                .classList.add("hidden");
+
+
+            document
+                .getElementById("startButton")
+                .classList.add("hidden");
+
+
+            /*
+             * Select 5 random objects
+             */
+
+            correctObjects = [...allObjects]
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 5);
+
+
+            const objectsContainer =
+                document.getElementById("objects");
+
+
+            objectsContainer.innerHTML = "";
+
+
+            correctObjects.forEach((object) => {
+
+                const div =
+                    document.createElement("div");
+
+                div.className = "object";
+
+                div.textContent = object;
+
+                objectsContainer.appendChild(div);
+
+            });
+
+
+            document
+                .getElementById("status")
+                .textContent =
+                "Remember these objects";
+
+
+            let seconds = 5;
+
+            document
+                .getElementById("timer")
+                .textContent =
+                `Time remaining: ${seconds}s`;
+
+
+            const countdown = setInterval(() => {
+
+                seconds--;
+
+                document
+                    .getElementById("timer")
+                    .textContent =
+                    `Time remaining: ${seconds}s`;
+
+
+                if (seconds <= 0) {
+
+                    clearInterval(countdown);
+
+                    showAnswers();
+
+                }
+
+            }, 1000);
+
+        };
+
+
+        /* ================= SHOW ANSWERS ================= */
+
+        function showAnswers() {
+
+            document
+                .getElementById("objects")
+                .innerHTML = "";
+
+
+            document
+                .getElementById("timer")
+                .textContent = "";
+
+
+            document
+                .getElementById("status")
+                .textContent =
+                "Which objects did you remember? Select them below.";
+
+
+            const answersContainer =
+                document.getElementById("answers");
+
+
+            answersContainer.innerHTML = "";
+
+
+            /*
+             * Show all 10 objects.
+             */
+
+            const shuffledAnswers =
+                [...allObjects]
+                    .sort(() => Math.random() - 0.5);
+
+
+            shuffledAnswers.forEach((object) => {
+
+                const div =
+                    document.createElement("div");
+
+                div.className = "answer";
+
+                div.textContent = object;
+
+
+                div.addEventListener("click", () => {
+
+                    toggleSelection(div, object);
+
+                });
+
+
+                answersContainer.appendChild(div);
+
+            });
+
+
+            answersContainer
+                .classList.remove("hidden");
+
+
+            document
+                .getElementById("submitButton")
+                .classList.remove("hidden");
+
+        }
+
+
+        /* ================= SELECT OBJECT ================= */
+
+        function toggleSelection(element, object) {
+
+            if (selectedObjects.includes(object)) {
+
+                selectedObjects =
+                    selectedObjects.filter(
+                        item => item !== object
+                    );
+
+                element.classList.remove("selected");
+
+            } else {
+
+                selectedObjects.push(object);
+
+                element.classList.add("selected");
+
+            }
+
+        }
+
+
+        /* ================= SUBMIT ================= */
+
+        window.submitGame = async function () {
+
+            if (selectedObjects.length === 0) {
+
+                alert("Please select at least one object.");
+
+                return;
+
+            }
+
+
+            let score = 0;
+
+
+            /*
+             * Calculate correct answers.
+             */
+
+            correctObjects.forEach((object) => {
+
+                if (selectedObjects.includes(object)) {
+
+                    score++;
+
+                }
+
+            });
+
+
+            const total = correctObjects.length;
+
+
+            const accuracy =
+                Math.round((score / total) * 100);
+
+
+            /* ================= SAVE FIRESTORE ================= */
+
+            if (!currentUser) {
+                alert("User authentication is not ready.");
+                return;
+            }
+
+            try {
+
+                const resultData = {
+                    userId: currentUser.uid,
+                    game: "memory-recall",
+                    score: score,
+                    total: total,
+                    accuracy: accuracy,
+                    playedAt: serverTimestamp()
+                };
+
+                await addDoc(
+                    collection(db, "gameResults"),
+                    resultData
+                );
+
+                console.log("Game result saved successfully.");
+
+            } catch (error) {
+
+                console.error("Firestore error:", error);
+
+                alert(
+                    "Could not save your result. Please try again."
+                );
+            }
+
+            /* ================= SHOW RESULT ================= */
+
+            document
+                .getElementById("answers")
+                .classList.add("hidden");
+
+
+            document
+                .getElementById("submitButton")
+                .classList.add("hidden");
+
+
+            document
+                .getElementById("status")
+                .textContent =
+                "Memory Recall completed.";
+
+
+            document
+                .getElementById("score")
+                .textContent =
+                `${score} / ${total}`;
+
+
+            document
+                .getElementById("accuracy")
+                .textContent =
+                `Accuracy: ${accuracy}%`;
+
+
+            document
+                .getElementById("result")
+                .classList.remove("hidden");
+
+
+            gameStarted = false;
+
+        };
+
+    </script>
+
+</body>
+
+</html>

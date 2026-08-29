@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DemenCure - Reminders</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(112, 91, 255, 0.08), transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08), transparent 30%),
+                #f5f6fb;
+            color: #172554;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            height: 82px;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #eeeeff;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 14px;
+
+            background: #eef0ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+        }
+
+        .brand-name {
+            font-size: 25px;
+            font-weight: 700;
+            color: #172554;
+        }
+
+        .back-btn {
+            text-decoration: none;
+
+            background: #f1f2f8;
+            color: #5146e5;
+
+            padding: 13px 20px;
+
+            border-radius: 14px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #e7e6ff;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        main {
+            width: 90%;
+            max-width: 1180px;
+
+            margin: 45px auto 70px;
+        }
+
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            background: linear-gradient(
+                120deg,
+                #4538d8,
+                #6657ee,
+                #9864ee
+            );
+
+            border-radius: 28px;
+
+            padding: 45px;
+
+            color: white;
+
+            position: relative;
+
+            overflow: hidden;
+
+            box-shadow: 0 18px 45px rgba(83, 70, 220, 0.20);
+
+            margin-bottom: 35px;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 230px;
+            height: 230px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.08);
+
+            right: -70px;
+            top: -100px;
+        }
+
+        .hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.06);
+
+            right: 90px;
+            bottom: -110px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 700;
+
+            opacity: 0.8;
+
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            opacity: 0.9;
+        }
+
+
+        /* =========================
+           ADD REMINDER CARD
+        ========================== */
+
+        .add-card {
+            background: white;
+
+            border-radius: 25px;
+
+            padding: 32px;
+
+            box-shadow: 0 12px 35px rgba(20, 30, 80, 0.07);
+
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            color: #718096;
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+
+            color: #475569;
+        }
+
+        input,
+        select {
+
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border: 1px solid #e1e4f2;
+
+            border-radius: 12px;
+
+            background: #fafaff;
+
+            font-size: 15px;
+
+            color: #172554;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #6855eb;
+
+            box-shadow: 0 0 0 3px rgba(104, 85, 235, 0.10);
+        }
+
+
+        /* =========================
+           ADD BUTTON
+        ========================== */
+
+        .add-btn {
+
+            border: none;
+
+            background: linear-gradient(
+                135deg,
+                #5944e9,
+                #823cf0
+            );
+
+            color: white;
+
+            padding: 14px 26px;
+
+            border-radius: 13px;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            margin-top: 22px;
+
+            box-shadow: 0 8px 20px rgba(91, 70, 230, 0.22);
+
+            transition: 0.2s;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           REMINDERS
+        ========================== */
+
+        .reminders-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .reminders-count {
+
+            background: #eeebff;
+
+            color: #5b45e6;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+        .reminders-list {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 18px;
+        }
+
+
+        /* =========================
+           REMINDER CARD
+        ========================== */
+
+        .reminder-card {
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 22px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            box-shadow: 0 8px 25px rgba(20, 30, 80, 0.06);
+
+            border: 1px solid #eeeef8;
+
+            transition: 0.2s;
+        }
+
+        .reminder-card:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 12px 30px rgba(20, 30, 80, 0.09);
+        }
+
+        .reminder-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+        }
+
+        .reminder-icon {
+
+            width: 55px;
+            height: 55px;
+
+            border-radius: 16px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 27px;
+
+            background: #f0edff;
+        }
+
+        .reminder-info h3 {
+
+            font-size: 17px;
+
+            margin-bottom: 5px;
+
+            color: #172554;
+        }
+
+        .reminder-info p {
+
+            font-size: 13px;
+
+            color: #7b8499;
+        }
+
+        .reminder-time {
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            color: #5944e9;
+
+            margin-top: 5px;
+        }
+
+        .delete-btn {
+
+            border: none;
+
+            background: #fff0f0;
+
+            color: #dc2626;
+
+            width: 38px;
+            height: 38px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-size: 16px;
+
+            transition: 0.2s;
+        }
+
+        .delete-btn:hover {
+            background: #ffe0e0;
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================== */
+
+        .empty-state {
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 55px 20px;
+
+            text-align: center;
+
+            box-shadow: 0 8px 25px rgba(20, 30, 80, 0.05);
+        }
+
+        .empty-icon {
+
+            font-size: 42px;
+
+            margin-bottom: 15px;
+        }
+
+        .empty-state h3 {
+
+            font-size: 20px;
+
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+
+            color: #7b8499;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 768px) {
+
+            header {
+                height: 72px;
+
+                padding: 0 20px;
+            }
+
+            .brand-name {
+                font-size: 20px;
+            }
+
+            .logo {
+                width: 42px;
+                height: 42px;
+            }
+
+            .back-btn {
+                padding: 10px 13px;
+
+                font-size: 13px;
+            }
+
+            main {
+                width: 92%;
+
+                margin-top: 25px;
+            }
+
+            .hero {
+                padding: 30px 25px;
+
+                border-radius: 22px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .add-card {
+                padding: 24px 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .reminders-list {
+                grid-template-columns: 1fr;
+            }
+
+            .reminder-card {
+                padding: 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header>
+
+        <div class="brand">
+        <img
+            src="images/logo.png"
+            alt="DemenCure Logo"
+            class="logo"
+        >
+
+            <div class="brand-name">
+                DemenCure
+            </div>
+
+        </div>
+
+
+        <a href="dashboard.html" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </header>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main>
+
+
+        <!-- =========================
+             HERO
+        ========================== -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="hero-label">
+                    DAILY CARE
+                </div>
+
+                <h1>
+                    Reminders
+                </h1>
+
+                <p>
+                    Keep track of medicines, water and important activities.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             ADD REMINDER
+        ========================== -->
+
+        <section class="add-card">
+
+            <h2 class="section-title">
+                Add a reminder
+            </h2>
+
+            <p class="section-subtitle">
+                Create a reminder for an important part of your day.
+            </p>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label for="reminderType">
+                        Reminder type
+                    </label>
+
+                    <select id="reminderType">
+
+                        <option value="medicine">
+                            Medicine
+                        </option>
+
+                        <option value="water">
+                            Water
+                        </option>
+
+                        <option value="activity">
+                            Activity
+                        </option>
+
+                        <option value="appointment">
+                            Appointment
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="reminderTime">
+                        Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="reminderTime"
+                    >
+
+                </div>
+
+
+
+                <div class="form-group full">
+
+                    <label for="reminderTitle">
+                        Reminder
+                    </label>
+
+                    <input
+                        type="text"
+                        id="reminderTitle"
+                        placeholder="Example: Take morning medicine"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                class="add-btn"
+                onclick="addReminder()"
+            >
+                Add Reminder →
+            </button>
+
+        </section>
+
+
+
+        <!-- =========================
+             MY REMINDERS
+        ========================== -->
+
+        <section>
+
+            <div class="reminders-header">
+
+                <div>
+
+                    <h2 class="section-title">
+                        My reminders
+                    </h2>
+
+                    <p class="section-subtitle">
+                        Your scheduled reminders
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="reminders-count"
+                    id="reminderCount"
+                >
+                    0 reminders
+                </div>
+
+            </div>
+
+
+            <div id="remindersContainer">
+
+                <!-- Reminders appear here -->
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        let reminders =
+            JSON.parse(
+                localStorage.getItem("demenCureReminders")
+            ) || [];
+
+
+        function getIcon(type) {
+
+            if (type === "medicine") {
+                return "💊";
+            }
+
+            if (type === "water") {
+                return "💧";
+            }
+
+            if (type === "activity") {
+                return "🚶";
+            }
+
+            if (type === "appointment") {
+                return "📅";
+            }
+
+            return "🔔";
+        }
+
+
+        function getTypeName(type) {
+
+            if (type === "medicine") {
+                return "Medicine";
+            }
+
+            if (type === "water") {
+                return "Water";
+            }
+
+            if (type === "activity") {
+                return "Activity";
+            }
+
+            if (type === "appointment") {
+                return "Appointment";
+            }
+
+            return "Reminder";
+        }
+
+
+        function formatTime(time) {
+
+            const [hours, minutes] =
+                time.split(":");
+
+            let hour = parseInt(hours);
+
+            const ampm =
+                hour >= 12 ? "PM" : "AM";
+
+            hour =
+                hour % 12 || 12;
+
+            return `${hour}:${minutes} ${ampm}`;
+        }
+
+
+        function addReminder() {
+
+            const type =
+                document.getElementById(
+                    "reminderType"
+                ).value;
+
+            const title =
+                document.getElementById(
+                    "reminderTitle"
+                ).value.trim();
+
+            const time =
+                document.getElementById(
+                    "reminderTime"
+                ).value;
+
+
+            if (!title) {
+
+                alert(
+                    "Please enter a reminder."
+                );
+
+                return;
+            }
+
+
+            if (!time) {
+
+                alert(
+                    "Please select a time."
+                );
+
+                return;
+            }
+
+
+            const reminder = {
+
+                id: Date.now(),
+
+                type: type,
+
+                title: title,
+
+                time: time
+
+            };
+
+
+            reminders.push(reminder);
+
+
+            localStorage.setItem(
+                "demenCureReminders",
+                JSON.stringify(reminders)
+            );
+
+
+            document.getElementById(
+                "reminderTitle"
+            ).value = "";
+
+            document.getElementById(
+                "reminderTime"
+            ).value = "";
+
+
+            displayReminders();
+
+        }
+
+
+
+        function deleteReminder(id) {
+
+            reminders =
+                reminders.filter(
+                    reminder =>
+                        reminder.id !== id
+                );
+
+
+            localStorage.setItem(
+                "demenCureReminders",
+                JSON.stringify(reminders)
+            );
+
+
+            displayReminders();
+
+        }
+
+
+
+        function displayReminders() {
+
+            const container =
+                document.getElementById(
+                    "remindersContainer"
+                );
+
+            const count =
+                document.getElementById(
+                    "reminderCount"
+                );
+
+
+            count.textContent =
+                `${reminders.length} ${
+                    reminders.length === 1
+                        ? "reminder"
+                        : "reminders"
+                }`;
+
+
+            if (reminders.length === 0) {
+
+                container.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            🔔
+                        </div>
+
+                        <h3>
+                            No reminders yet
+                        </h3>
+
+                        <p>
+                            Add your first reminder above.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            // Sort reminders by time
+
+            const sortedReminders =
+                [...reminders].sort(
+                    (a, b) =>
+                        a.time.localeCompare(b.time)
+                );
+
+
+            container.innerHTML = `
+
+                <div class="reminders-list">
+
+                    ${sortedReminders.map(
+                        reminder => `
+
+                        <div class="reminder-card">
+
+                            <div class="reminder-left">
+
+                                <div class="reminder-icon">
+
+                                    ${getIcon(
+                                        reminder.type
+                                    )}
+
+                                </div>
+
+
+                                <div class="reminder-info">
+
+                                    <h3>
+                                        ${escapeHtml(
+                                            reminder.title
+                                        )}
+                                    </h3>
+
+                                    <p>
+                                        ${getTypeName(
+                                            reminder.type
+                                        )}
+                                    </p>
+
+                                    <div class="reminder-time">
+
+                                        ${formatTime(
+                                            reminder.time
+                                        )}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                class="delete-btn"
+                                onclick="deleteReminder(
+                                    ${reminder.id}
+                                )"
+                                title="Delete reminder"
+                            >
+                                ✕
+                            </button>
+
+                        </div>
+
+                    `
+                    ).join("")}
+
+                </div>
+
+            `;
+
+        }
+
+
+
+        function escapeHtml(text) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent = text;
+
+            return div.innerHTML;
+
+        }
+
+
+        // Load reminders when page opens
+
+        displayReminders();
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DemenCure - Register</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <!-- LEFT SECTION -->
+        <section class="welcome-section">
+
+            <div class="welcome-content">
+
+                <div class="logo">
+                    <span>🧠</span>
+                    <h1>DemenCure</h1>
+                </div>
+
+                <h2>
+                    Start your journey<br>
+                    <span>towards better care.</span>
+                </h2>
+
+                <p>
+                    Create an account to access cognitive activities,
+                    memory assistance and personalized support.
+                </p>
+
+                <div class="feature-list">
+
+                    <div class="feature">
+                        <div class="feature-icon">🧩</div>
+
+                        <div>
+                            <strong>Cognitive Activities</strong>
+                            <small>
+                                Engage with simple memory exercises
+                            </small>
+                        </div>
+                    </div>
+
+
+                    <div class="feature">
+                        <div class="feature-icon">📈</div>
+
+                        <div>
+                            <strong>Personalized Progress</strong>
+                            <small>
+                                Track your cognitive activity
+                            </small>
+                        </div>
+                    </div>
+
+
+                    <div class="feature">
+                        <div class="feature-icon">🤝</div>
+
+                        <div>
+                            <strong>Connected Care</strong>
+                            <small>
+                                Keep caregivers involved
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- REGISTER SECTION -->
+        <section class="login-section">
+
+            <div class="login-card register-card">
+
+                <!-- Mobile Logo -->
+                <div class="mobile-logo">
+
+                    <div class="logo-icon">
+                        <img src="images/logo.png" alt="DemenCure Logo">
+                    </div>
+
+                    <span>DemenCure</span>
+
+                </div>
+
+
+                <!-- Heading -->
+                <div class="login-heading">
+
+                    <h2>Create account</h2>
+
+                    <p>
+                        Tell us a little about yourself
+                    </p>
+
+                </div>
+
+
+                <form id="registerForm">
+
+
+                    <!-- NAME -->
+                    <div class="input-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                👤
+                            </span>
+
+                            <input type="text" id="name" placeholder="Enter full name" required>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- AGE -->
+                    <div class="input-group">
+
+                        <label for="age">
+                            Age
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                🎂
+                            </span>
+
+                            <input type="number" id="age" placeholder="Enter age" min="1" max="120" required>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div class="input-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ✉
+                            </span>
+
+                            <input type="email" id="email" placeholder="Enter your email" required>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+                    <div class="input-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                🔒
+                            </span>
+
+                            <input type="password" id="password" placeholder="Create a password" minlength="6" required>
+
+                            <button type="button" class="show-password" id="togglePassword">
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                   
+
+
+                    <!-- BUTTON -->
+                    <button type="submit" class="login-button">
+                        Create Account
+                        <span>→</span>
+                    </button>
+
+
+                    <!-- MESSAGE -->
+                    <p id="message"></p>
+
+                </form>
+
+
+                <!-- DIVIDER -->
+                <div class="divider">
+                    <span>or</span>
+                </div>
+
+
+                <!-- LOGIN LINK -->
+                <p class="register-text">
+
+                    Already have an account?
+
+                    <a href="index.html">
+                        Sign In
+                    </a>
+
+                </p>
+
+
+                <p class="privacy-text">
+                    Your account information is securely stored
+                    and used only to provide the DemenCure service.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script type="module" src="app.js"></script>
+
+</body>
+
+</html>
