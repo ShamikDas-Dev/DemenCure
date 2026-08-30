@@ -119,7 +119,7 @@ The application associates user data with the authenticated Firebase user ID, al
 
 ## 📂 Project Structure
 
-```text
+
 DemenCure-Web/
 │
 ├── images/
