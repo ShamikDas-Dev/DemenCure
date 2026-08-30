@@ -5,16 +5,12 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>DemenCure - My Progress</title>
 
 
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -28,17 +24,13 @@
             min-height: 100vh;
 
             background:
-                radial-gradient(
-                    circle at 10% 20%,
+                radial-gradient(circle at 10% 20%,
                     rgba(120, 100, 255, 0.12),
-                    transparent 30%
-                ),
+                    transparent 30%),
 
-                radial-gradient(
-                    circle at 90% 80%,
+                radial-gradient(circle at 90% 80%,
                     rgba(180, 100, 255, 0.12),
-                    transparent 30%
-                ),
+                    transparent 30%),
 
                 #f5f6fb;
 
@@ -52,7 +44,7 @@
 
             height: 82px;
 
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
 
             display: flex;
 
@@ -147,18 +139,15 @@
             border-radius: 28px;
 
             background:
-                linear-gradient(
-                    135deg,
+                linear-gradient(135deg,
                     #4338ca,
                     #5b4de8,
-                    #8b5cf6
-                );
+                    #8b5cf6);
 
             color: white;
 
             box-shadow:
-                0 20px 50px
-                rgba(82,70,229,0.22);
+                0 20px 50px rgba(82, 70, 229, 0.22);
 
             margin-bottom: 30px;
         }
@@ -177,7 +166,7 @@
             border-radius: 50%;
 
             background:
-                rgba(255,255,255,0.08);
+                rgba(255, 255, 255, 0.08);
 
             right: -70px;
 
@@ -252,8 +241,7 @@
             border-radius: 22px;
 
             box-shadow:
-                0 12px 35px
-                rgba(20,33,61,0.07);
+                0 12px 35px rgba(20, 33, 61, 0.07);
 
             border:
                 1px solid #eeeeef;
@@ -301,8 +289,7 @@
             padding: 30px;
 
             box-shadow:
-                0 12px 35px
-                rgba(20,33,61,0.07);
+                0 12px 35px rgba(20, 33, 61, 0.07);
 
             margin-bottom: 30px;
         }
@@ -341,10 +328,7 @@
             display: grid;
 
             grid-template-columns:
-                1.5fr
-                1fr
-                1fr
-                1fr;
+                1.5fr 1fr 1fr 1fr;
 
             align-items: center;
 
@@ -456,15 +440,12 @@
             font-weight: 700;
 
             background:
-                linear-gradient(
-                    135deg,
+                linear-gradient(135deg,
                     #4f46e5,
-                    #7c3aed
-                );
+                    #7c3aed);
 
             box-shadow:
-                0 10px 25px
-                rgba(79,70,229,0.25);
+                0 10px 25px rgba(79, 70, 229, 0.25);
 
             transition: 0.2s;
         }
@@ -597,7 +578,6 @@
                 font-size: 30px;
             }
         }
-
     </style>
 
 </head>
@@ -606,808 +586,793 @@
 <body>
 
 
-<!-- ================= HEADER ================= -->
+    <!-- ================= HEADER ================= -->
 
-<header>
+    <header>
 
-    <div class="brand">
+        <div class="brand">
 
-        <img
-            src="images/logo.png"
-            alt="DemenCure Logo"
-            class="logo"
-        >
+            <img src="images/logo.png" alt="DemenCure Logo" class="logo">
 
-        <span>DemenCure</span>
-
-    </div>
-
-
-    <a
-        href="dashboard.html"
-        class="back-btn"
-    >
-        ← Dashboard
-    </a>
-
-</header>
-
-
-
-<!-- ================= MAIN ================= -->
-
-<main>
-
-
-    <!-- ================= HERO ================= -->
-
-    <section class="hero">
-
-        <div class="hero-content">
-
-            <div class="eyebrow">
-                COGNITIVE PROGRESS
-            </div>
-
-
-            <h1>
-                My Progress
-            </h1>
-
-
-            <p>
-                View your cognitive game activity
-                and track your performance over time.
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= STATS ================= -->
-
-    <section class="stats">
-
-
-        <!-- TOTAL GAMES -->
-
-        <div class="stat-card">
-
-            <div class="stat-title">
-                Games Completed
-            </div>
-
-            <div
-                class="stat-value"
-                id="gamesCompleted"
-            >
-                0
-            </div>
-
-            <div class="stat-subtitle">
-                All cognitive games
-            </div>
+            <span>DemenCure</span>
 
         </div>
 
 
+        <a href="dashboard.html" class="back-btn">
+            ← Dashboard
+        </a>
 
-        <!-- AVERAGE ACCURACY -->
+    </header>
 
-        <div class="stat-card">
 
-            <div class="stat-title">
-                Average Accuracy
+
+    <!-- ================= MAIN ================= -->
+
+    <main>
+
+
+        <!-- ================= HERO ================= -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    COGNITIVE PROGRESS
+                </div>
+
+
+                <h1>
+                    My Progress
+                </h1>
+
+
+                <p>
+                    View your cognitive game activity
+                    and track your performance over time.
+                </p>
+
             </div>
 
-            <div
-                class="stat-value"
-                id="averageAccuracy"
-            >
-                0%
+        </section>
+
+
+
+        <!-- ================= STATS ================= -->
+
+        <section class="stats">
+
+
+            <!-- TOTAL GAMES -->
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    Games Completed
+                </div>
+
+                <div class="stat-value" id="gamesCompleted">
+                    0
+                </div>
+
+                <div class="stat-subtitle">
+                    All cognitive games
+                </div>
+
             </div>
 
-            <div class="stat-subtitle">
-                Across all completed games
+
+
+            <!-- AVERAGE ACCURACY -->
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    Average Accuracy
+                </div>
+
+                <div class="stat-value" id="averageAccuracy">
+                    0%
+                </div>
+
+                <div class="stat-subtitle">
+                    Across all completed games
+                </div>
+
             </div>
 
-        </div>
 
 
+            <!-- BEST ACCURACY -->
 
-        <!-- BEST ACCURACY -->
+            <div class="stat-card">
 
-        <div class="stat-card">
+                <div class="stat-title">
+                    Best Accuracy
+                </div>
 
-            <div class="stat-title">
-                Best Accuracy
+                <div class="stat-value" id="bestAccuracy">
+                    0%
+                </div>
+
+                <div class="stat-subtitle">
+                    Highest performance
+                </div>
+
             </div>
 
-            <div
-                class="stat-value"
-                id="bestAccuracy"
-            >
-                0%
+
+
+            <!-- TODAY -->
+
+            <div class="stat-card">
+
+                <div class="stat-title">
+                    Games Today
+                </div>
+
+                <div class="stat-value" id="gamesToday">
+                    0
+                </div>
+
+                <div class="stat-subtitle">
+                    Activities completed today
+                </div>
+
             </div>
 
-            <div class="stat-subtitle">
-                Highest performance
+
+        </section>
+
+
+
+        <!-- ================= RECENT GAMES ================= -->
+
+        <section class="section">
+
+
+            <div class="section-header">
+
+                <h2>
+                    Recent Games
+                </h2>
+
+
+
+                <div class="loading" id="loading">
+                </div>
             </div>
 
-        </div>
 
 
-
-        <!-- TODAY -->
-
-        <div class="stat-card">
-
-            <div class="stat-title">
-                Games Today
-            </div>
-
-            <div
-                class="stat-value"
-                id="gamesToday"
-            >
-                0
-            </div>
-
-            <div class="stat-subtitle">
-                Activities completed today
-            </div>
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- ================= RECENT GAMES ================= -->
-
-    <section class="section">
-
-
-        <div class="section-header">
-
-            <h2>
-                Recent Games
-            </h2>
-
-         
-            
-        <div
-            class="loading"
-            id="loading"
-        >
-        </div>
-        </div>
-
-
-
-        <!-- LOADING -->
+            <!-- LOADING -->
 
 
 
 
-        <!-- GAME LIST -->
+            <!-- GAME LIST -->
 
-        <div
-            id="gameList"
-            class="hidden"
-        >
+            <div id="gameList" class="hidden">
 
 
-            <!-- HEADER -->
+                <!-- HEADER -->
 
-            <div
-                class="game-row"
-                style="
+                <div class="game-row" style="
                     font-weight:700;
                     color:#777;
-                "
-            >
+                ">
 
-                <div>
-                    Activity
+                    <div>
+                        Activity
+                    </div>
+
+                    <div>
+                        Date
+                    </div>
+
+                    <div>
+                        Score
+                    </div>
+
+                    <div>
+                        Performance
+                    </div>
+
                 </div>
 
-                <div>
-                    Date
-                </div>
 
-                <div>
-                    Score
-                </div>
+                <div id="gamesContainer"></div>
 
-                <div>
-                    Accuracy
-                </div>
 
             </div>
 
 
-            <div
-                id="gamesContainer"
-            ></div>
+
+            <!-- EMPTY -->
+
+            <div class="empty hidden" id="emptyState">
+
+                <div class="empty-icon">
+                </div>
 
 
-        </div>
 
 
 
-        <!-- EMPTY -->
 
-        <div
-            class="empty hidden"
-            id="emptyState"
-        >
-
-            <div class="empty-icon">
             </div>
 
 
 
+            <!-- ACTION -->
 
-          
+            <div class="action">
 
-        </div>
+                <a href="dashboard.html" class="primary-btn">
+                    Play a Game →
+                </a>
 
-
-
-        <!-- ACTION -->
-
-        <div class="action">
-
-            <a
-                href="dashboard.html"
-                class="primary-btn"
-            >
-                Play a Game →
-            </a>
-
-        </div>
+            </div>
 
 
-    </section>
+        </section>
 
 
-</main>
+    </main>
 
 
 
-<!-- ================= FIREBASE ================= -->
+    <!-- ================= FIREBASE ================= -->
 
-<script type="module">
-
-
-    /* ================= FIREBASE IMPORTS ================= */
-
-    import {
-        initializeApp
-    }
-    from
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    <script type="module">
 
 
-    import {
-        getAuth,
-        onAuthStateChanged
-    }
-    from
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        /* ================= FIREBASE IMPORTS ================= */
 
-
-    import {
-        getFirestore,
-        collection,
-        query,
-        where,
-        getDocs
-    }
-    from
-    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-
-
-
-    /* ================= FIREBASE CONFIG ================= */
-
-const firebaseConfig = {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID
-};
-
-
-    /* ================= INITIALIZE ================= */
-
-    const app =
-        initializeApp(firebaseConfig);
-
-
-    const auth =
-        getAuth(app);
-
-
-    const db =
-        getFirestore(app);
-
-
-
-    /* ================= GAME NAMES ================= */
-
-    /*
-     * Add future games here.
-     *
-     * Example:
-     *
-     * "attention-game": "Attention Game"
-     *
-     */
-
-    const gameNames = {
-
-        "memory-recall":
-            "Memory Recall",
-
-        "Memory Recall":
-            "Memory Recall",
-
-        "sequence-recall":
-            "Sequence Recall",
-
-        "Sequence Recall":
-            "Sequence Recall"
-
-    };
-
-
-
-    /* ================= GET GAME NAME ================= */
-
-    function getGameName(gameId) {
-
-        if (gameNames[gameId]) {
-
-            return gameNames[gameId];
-
+        import {
+            initializeApp
         }
+            from
+            "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
+
+        import {
+            getAuth,
+            onAuthStateChanged
+        }
+            from
+            "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+        import {
+            getFirestore,
+            collection,
+            query,
+            where,
+            getDocs
+        }
+            from
+            "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+
+        /* ================= FIREBASE CONFIG ================= */
+
+        const firebaseConfig = {
+            apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+            authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+            projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+            storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+            messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+            appId: import.meta.env.VITE_FIREBASE_APP_ID
+        };
+
+
+        /* ================= INITIALIZE ================= */
+
+        const app =
+            initializeApp(firebaseConfig);
+
+
+        const auth =
+            getAuth(app);
+
+
+        const db =
+            getFirestore(app);
+
+
+
+        /* ================= GAME NAMES ================= */
 
         /*
-         * If a new game is added but
-         * not added to gameNames,
-         * convert its ID into a readable name.
+         * Add future games here.
+         *
+         * Example:
+         *
+         * "attention-game": "Attention Game"
+         *
          */
 
-        return String(gameId || "Unknown Game")
+        const gameNames = {
 
-            .replace(/[-_]/g, " ")
+            "memory-recall":
+                "Memory Recall",
 
-            .replace(/\b\w/g, letter =>
-                letter.toUpperCase()
-            );
+            "Memory Recall":
+                "Memory Recall",
 
-    }
+            "sequence-recall":
+                "Sequence Recall",
+
+            "Sequence Recall":
+                "Sequence Recall",
+
+            "matching-game":
+                "Matching Game",
+
+            "Matching Game":
+                "Matching Game"
+
+        };
 
 
+        /* ================= GET GAME NAME ================= */
 
-    /* ================= AUTH ================= */
+        function getGameName(gameId) {
 
-    onAuthStateChanged(
+            if (gameNames[gameId]) {
 
-        auth,
-
-        async (user) => {
-
-
-            if (!user) {
-
-                window.location.href =
-                    "login.html";
-
-                return;
+                return gameNames[gameId];
 
             }
 
 
-            await loadProgress(user.uid);
+            /*
+             * If a new game is added but
+             * not added to gameNames,
+             * convert its ID into a readable name.
+             */
+
+            return String(gameId || "Unknown Game")
+
+                .replace(/[-_]/g, " ")
+
+                .replace(/\b\w/g, letter =>
+                    letter.toUpperCase()
+                );
 
         }
 
-    );
 
 
+        /* ================= AUTH ================= */
 
-    /* ================= LOAD PROGRESS ================= */
+        onAuthStateChanged(
 
-    async function loadProgress(userId) {
+            auth,
 
-
-        const loading =
-            document.getElementById("loading");
-
-
-        const gameList =
-            document.getElementById("gameList");
+            async (user) => {
 
 
-        const emptyState =
-            document.getElementById("emptyState");
+                if (!user) {
 
+                    window.location.href =
+                        "index.html";
 
-        try {
-
-
-            /* ================= GET RESULTS ================= */
-
-            const resultsRef =
-                collection(
-                    db,
-                    "gameResults"
-                );
-
-
-         
-
-            const q =
-                query(
-                    resultsRef,
-                    where(
-                        "userId",
-                        "==",
-                        userId
-                    )
-                );
-
-
-            const snapshot =
-                await getDocs(q);
-
-
-            const results = [];
-
-
-            snapshot.forEach(
-                (doc) => {
-
-                    const data =
-                        doc.data();
-
-
-                    results.push(data);
+                    return;
 
                 }
-            );
 
 
-
-            /* ================= SORT ================= */
-
-            results.sort(
-                (a, b) => {
-
-                    const dateA =
-                        a.playedAt?.toDate
-                            ? a.playedAt.toDate()
-                            : new Date(0);
-
-
-                    const dateB =
-                        b.playedAt?.toDate
-                            ? b.playedAt.toDate()
-                            : new Date(0);
-
-
-                    return dateB - dateA;
-
-                }
-            );
-
-
-
-            console.log(
-                "All game progress:",
-                results
-            );
-
-
-
-            /* ================= TOTAL GAMES ================= */
-
-            const gamesCompleted =
-                results.length;
-
-
-            document
-                .getElementById(
-                    "gamesCompleted"
-                )
-                .textContent =
-                gamesCompleted;
-
-
-
-            /* ================= AVERAGE ACCURACY ================= */
-
-            let averageAccuracy = 0;
-
-
-            if (gamesCompleted > 0) {
-
-                const totalAccuracy =
-                    results.reduce(
-
-                        (sum, game) =>
-
-                            sum +
-                            Number(
-                                game.accuracy || 0
-                            ),
-
-                        0
-
-                    );
-
-
-                averageAccuracy =
-                    Math.round(
-                        totalAccuracy /
-                        gamesCompleted
-                    );
+                await loadProgress(user.uid);
 
             }
 
-
-            document
-                .getElementById(
-                    "averageAccuracy"
-                )
-                .textContent =
-                `${averageAccuracy}%`;
+        );
 
 
 
-            /* ================= BEST ACCURACY ================= */
+        /* ================= LOAD PROGRESS ================= */
 
-            let bestAccuracy = 0;
+        async function loadProgress(userId) {
 
 
-            if (gamesCompleted > 0) {
+            const loading =
+                document.getElementById("loading");
 
-                bestAccuracy =
-                    Math.max(
 
-                        ...results.map(
-                            game =>
-                                Number(
-                                    game.accuracy || 0
-                                )
+            const gameList =
+                document.getElementById("gameList");
+
+
+            const emptyState =
+                document.getElementById("emptyState");
+
+
+            try {
+
+
+                /* ================= GET RESULTS ================= */
+
+                const resultsRef =
+                    collection(
+                        db,
+                        "gameResults"
+                    );
+
+
+
+
+                const q =
+                    query(
+                        resultsRef,
+                        where(
+                            "userId",
+                            "==",
+                            userId
                         )
-
                     );
 
-            }
+
+                const snapshot =
+                    await getDocs(q);
 
 
-            document
-                .getElementById(
-                    "bestAccuracy"
-                )
-                .textContent =
-                `${bestAccuracy}%`;
+                const results = [];
 
 
+                snapshot.forEach(
+                    (doc) => {
 
-            /* ================= GAMES TODAY ================= */
-
-            const today =
-                new Date();
-
-
-            const todayYear =
-                today.getFullYear();
+                        const data =
+                            doc.data();
 
 
-            const todayMonth =
-                today.getMonth();
-
-
-            const todayDate =
-                today.getDate();
-
-
-            const gamesToday =
-                results.filter(
-                    game => {
-
-                        if (
-                            !game.playedAt ||
-                            !game.playedAt.toDate
-                        ) {
-
-                            return false;
-
-                        }
-
-
-                        const gameDate =
-                            game.playedAt.toDate();
-
-
-                        return (
-
-                            gameDate.getFullYear()
-                                === todayYear
-
-                            &&
-
-                            gameDate.getMonth()
-                                === todayMonth
-
-                            &&
-
-                            gameDate.getDate()
-                                === todayDate
-
-                        );
+                        results.push(data);
 
                     }
-                ).length;
-
-
-            document
-                .getElementById(
-                    "gamesToday"
-                )
-                .textContent =
-                gamesToday;
-
-
-
-            /* ================= HIDE LOADING ================= */
-
-            loading.classList.add(
-                "hidden"
-            );
-
-
-
-            /* ================= NO RESULTS ================= */
-
-            if (results.length === 0) {
-
-                emptyState.classList.remove(
-                    "hidden"
-                );
-
-                gameList.classList.add(
-                    "hidden"
-                );
-
-                return;
-
-            }
-
-
-
-            /* ================= SHOW GAME LIST ================= */
-
-            gameList.classList.remove(
-                "hidden"
-            );
-
-            emptyState.classList.add(
-                "hidden"
-            );
-
-
-
-            const gamesContainer =
-                document.getElementById(
-                    "gamesContainer"
                 );
 
 
-            gamesContainer.innerHTML = "";
+
+                /* ================= SORT ================= */
+
+                results.sort(
+                    (a, b) => {
+
+                        const dateA =
+                            a.playedAt?.toDate
+                                ? a.playedAt.toDate()
+                                : new Date(0);
+
+
+                        const dateB =
+                            b.playedAt?.toDate
+                                ? b.playedAt.toDate()
+                                : new Date(0);
+
+
+                        return dateB - dateA;
+
+                    }
+                );
 
 
 
-            /* ================= SHOW LATEST 10 ================= */
-
-            results
-                .slice(0, 5)
-                .forEach(
-                    (game) => {
-
-
-                        const row =
-                            document.createElement(
-                                "div"
-                            );
-
-
-                        row.className =
-                            "game-row";
+                console.log(
+                    "All game progress:",
+                    results
+                );
 
 
 
-                        /* ================= GAME NAME ================= */
+                /* ================= TOTAL GAMES ================= */
 
-                        const gameName =
-                            getGameName(
-                                game.game
-                            );
+                const gamesCompleted =
+                    results.length;
 
 
+                document
+                    .getElementById(
+                        "gamesCompleted"
+                    )
+                    .textContent =
+                    gamesCompleted;
 
-                        /* ================= DATE ================= */
-
-                        let dateText =
-                            "Unknown date";
 
 
-                        if (
-                            game.playedAt &&
-                            game.playedAt.toDate
-                        ) {
+                /* ================= AVERAGE ACCURACY ================= */
 
-                            const date =
+
+                /*
+                 * Matching Game does not use accuracy.
+                 * Only games that have an accuracy value
+                 * are included in the average.
+                 */
+
+                const accuracyGames =
+                    results.filter(
+                        game =>
+                            game.accuracy !== undefined &&
+                            game.accuracy !== null
+                    );
+
+                let averageAccuracy = 0;
+
+                if (accuracyGames.length > 0) {
+
+                    const totalAccuracy =
+                        accuracyGames.reduce(
+                            (sum, game) =>
+                                sum +
+                                Number(game.accuracy),
+                            0
+                        );
+
+                    averageAccuracy =
+                        Math.round(
+                            totalAccuracy /
+                            accuracyGames.length
+                        );
+                }
+
+                document
+                    .getElementById(
+                        "averageAccuracy"
+                    )
+                    .textContent =
+                    `${averageAccuracy}%`;
+
+                /* ================= BEST ACCURACY ================= */
+
+                /* ================= BEST ACCURACY ================= */
+
+                let bestAccuracy = 0;
+
+                if (gamesCompleted > 0) {
+
+                    bestAccuracy =
+                        Math.max(
+                            ...results.map(
+                                game =>
+                                    Number(
+                                        game.accuracy || 0
+                                    )
+                            )
+                        );
+                }
+
+                document
+                    .getElementById(
+                        "bestAccuracy"
+                    )
+                    .textContent =
+                    `${bestAccuracy}%`;
+
+
+
+                /* ================= GAMES TODAY ================= */
+
+                const today =
+                    new Date();
+
+
+                const todayYear =
+                    today.getFullYear();
+
+
+                const todayMonth =
+                    today.getMonth();
+
+
+                const todayDate =
+                    today.getDate();
+
+
+                const gamesToday =
+                    results.filter(
+                        game => {
+
+                            if (
+                                !game.playedAt ||
+                                !game.playedAt.toDate
+                            ) {
+
+                                return false;
+
+                            }
+
+
+                            const gameDate =
                                 game.playedAt.toDate();
 
 
-                            dateText =
-                                date.toLocaleDateString(
-                                    "en-IN",
-                                    {
-                                        day:
-                                            "2-digit",
+                            return (
 
-                                        month:
-                                            "short",
+                                gameDate.getFullYear()
+                                === todayYear
 
-                                        year:
-                                            "numeric"
-                                    }
-                                );
+                                &&
+
+                                gameDate.getMonth()
+                                === todayMonth
+
+                                &&
+
+                                gameDate.getDate()
+                                === todayDate
+
+                            );
 
                         }
+                    ).length;
+
+
+                document
+                    .getElementById(
+                        "gamesToday"
+                    )
+                    .textContent =
+                    gamesToday;
 
 
 
-                        /* ================= SCORE ================= */
+                /* ================= HIDE LOADING ================= */
 
-                        const score =
-                            Number(
-                                game.score || 0
-                            );
-
-
-                        const total =
-                            Number(
-                                game.total || 0
-                            );
+                loading.classList.add(
+                    "hidden"
+                );
 
 
 
-                        /* ================= ACCURACY ================= */
+                /* ================= NO RESULTS ================= */
 
-                        const accuracy =
-                            Number(
-                                game.accuracy || 0
-                            );
+                if (results.length === 0) {
+
+                    emptyState.classList.remove(
+                        "hidden"
+                    );
+
+                    gameList.classList.add(
+                        "hidden"
+                    );
+
+                    return;
+
+                }
 
 
 
-                        /* ================= ROW ================= */
+                /* ================= SHOW GAME LIST ================= */
 
-                        row.innerHTML = `
+                gameList.classList.remove(
+                    "hidden"
+                );
+
+                emptyState.classList.add(
+                    "hidden"
+                );
+
+
+
+                const gamesContainer =
+                    document.getElementById(
+                        "gamesContainer"
+                    );
+
+
+                gamesContainer.innerHTML = "";
+
+
+
+                /* ================= SHOW LATEST 5 ================= */
+
+                results
+                    .slice(0, 5)
+                    .forEach(
+                        (game) => {
+
+
+                            const row =
+                                document.createElement(
+                                    "div"
+                                );
+
+
+                            row.className =
+                                "game-row";
+
+
+
+                            /* ================= GAME NAME ================= */
+
+                            const gameName =
+                                getGameName(
+                                    game.game
+                                );
+
+
+
+                            /* ================= DATE ================= */
+
+                            let dateText =
+                                "Unknown date";
+
+
+                            if (
+                                game.playedAt &&
+                                game.playedAt.toDate
+                            ) {
+
+                                const date =
+                                    game.playedAt.toDate();
+
+
+                                dateText =
+                                    date.toLocaleDateString(
+                                        "en-IN",
+                                        {
+                                            day:
+                                                "2-digit",
+
+                                            month:
+                                                "short",
+
+                                            year:
+                                                "numeric"
+                                        }
+                                    );
+
+                            }
+
+
+
+                            /* ================= SCORE ================= */
+
+                            const score =
+                                Number(
+                                    game.score || 0
+                                );
+
+
+                            const total =
+                                Number(
+                                    game.total || 0
+                                );
+
+
+
+                            /* ================= PERFORMANCE ================= */
+
+                            let performance;
+
+                            if (game.game === "matching-game") {
+
+                                const attempts =
+                                    Number(
+                                        game.attempts || 0
+                                    );
+
+                                performance =
+                                    `${attempts} attempts`;
+
+                            } else {
+
+                                const accuracy =
+                                    Number(
+                                        game.accuracy || 0
+                                    );
+
+                                performance =
+                                    `${accuracy}%`;
+                            }
+
+
+                            /* ================= ROW ================= */
+
+                            row.innerHTML = `
 
                             <div class="game-name">
                                 ${gameName}
@@ -1422,46 +1387,46 @@ const firebaseConfig = {
                             </div>
 
                             <div class="game-accuracy">
-                                ${accuracy}%
+                                 ${performance}
                             </div>
 
                         `;
 
 
-                        gamesContainer
-                            .appendChild(row);
+                            gamesContainer
+                                .appendChild(row);
 
-                    }
+                        }
+                    );
+
+
+            }
+
+
+            catch (error) {
+
+
+                console.error(
+                    "Error loading progress:",
+                    error
                 );
 
 
-        }
+                /* ================= HIDE LOADING ================= */
+
+                loading.classList.add(
+                    "hidden"
+                );
 
 
-        catch (error) {
+                /* ================= SHOW ERROR ================= */
+
+                emptyState.classList.remove(
+                    "hidden"
+                );
 
 
-            console.error(
-                "Error loading progress:",
-                error
-            );
-
-
-            /* ================= HIDE LOADING ================= */
-
-            loading.classList.add(
-                "hidden"
-            );
-
-
-            /* ================= SHOW ERROR ================= */
-
-            emptyState.classList.remove(
-                "hidden"
-            );
-
-
-            emptyState.innerHTML = `
+                emptyState.innerHTML = `
 
                 <div class="empty-icon">
                     ⚠️
@@ -1478,12 +1443,12 @@ const firebaseConfig = {
 
             `;
 
+            }
+
         }
 
-    }
 
-
-</script>
+    </script>
 
 
 </body>
