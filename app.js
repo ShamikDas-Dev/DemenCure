@@ -1,4 +1,15 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+// ============================================================
+// DEMENCURE - FIREBASE APP
+// ============================================================
+
+console.log("DemenCure app.js loaded");
+
+// ============================================================
+// FIREBASE IMPORTS
+// ============================================================
+
+import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 import {
     getAuth,
@@ -6,8 +17,10 @@ import {
     signInWithEmailAndPassword,
     sendEmailVerification,
     sendPasswordResetEmail,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+    signOut,
+    onAuthStateChanged
+} from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 import {
     getFirestore,
@@ -15,25 +28,53 @@ import {
     setDoc,
     getDoc,
     serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+} from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-// ==============================
+// ============================================================
 // FIREBASE CONFIGURATION
-// ==============================
+// ============================================================
 
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID
+
+    apiKey:
+        import.meta.env.VITE_FIREBASE_API_KEY,
+
+    authDomain:
+        import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+
+    projectId:
+        import.meta.env.VITE_FIREBASE_PROJECT_ID,
+
+    storageBucket:
+        import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+
+    messagingSenderId:
+        import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+
+    appId:
+        import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// ==============================
+
+// ============================================================
+// CHECK ENVIRONMENT VARIABLES
+// ============================================================
+
+console.log("Firebase environment:", {
+    apiKey: !!firebaseConfig.apiKey,
+    authDomain: !!firebaseConfig.authDomain,
+    projectId: !!firebaseConfig.projectId,
+    storageBucket: !!firebaseConfig.storageBucket,
+    messagingSenderId: !!firebaseConfig.messagingSenderId,
+    appId: !!firebaseConfig.appId
+});
+
+
+// ============================================================
 // INITIALIZE FIREBASE
-// ==============================
+// ============================================================
 
 const app = initializeApp(firebaseConfig);
 
@@ -41,350 +82,466 @@ const auth = getAuth(app);
 
 const db = getFirestore(app);
 
+console.log("Firebase initialized successfully");
 
-// ==============================
+
+// ============================================================
 // REGISTRATION
-// ==============================
+// ============================================================
 
 const registerForm =
     document.getElementById("registerForm");
 
 if (registerForm) {
 
-    registerForm.addEventListener("submit", async (e) => {
+    registerForm.addEventListener(
+        "submit",
+        async (event) => {
 
-        e.preventDefault();
+            event.preventDefault();
 
+            const nameInput =
+                document.getElementById("name");
 
-        const name =
-            document.getElementById("name").value.trim();
+            const ageInput =
+                document.getElementById("age");
 
-        const age =
-            document.getElementById("age").value;
+            const emailInput =
+                document.getElementById("email");
 
-        const email =
-            document.getElementById("email").value.trim();
+            const passwordInput =
+                document.getElementById("password");
 
-        const password =
-            document.getElementById("password").value;
-
-        const message =
-            document.getElementById("message");
-
-
-        message.style.color = "#6366f1";
-
-        message.textContent =
-            "Creating your account...";
+            const message =
+                document.getElementById("message");
 
 
-        try {
+            const name =
+                nameInput
+                    ? nameInput.value.trim()
+                    : "";
 
-            // ==============================
-            // CREATE FIREBASE ACCOUNT
-            // ==============================
+            const age =
+                ageInput
+                    ? ageInput.value
+                    : "";
 
-            const userCredential =
-                await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
+            const email =
+                emailInput
+                    ? emailInput.value.trim()
+                    : "";
 
-
-            const user =
-                userCredential.user;
-
-
-            // ==============================
-            // SEND EMAIL VERIFICATION
-            // ==============================
-
-            await sendEmailVerification(user);
+            const password =
+                passwordInput
+                    ? passwordInput.value
+                    : "";
 
 
-            // ==============================
-            // SAVE USER DATA
-            // ==============================
+            if (!name || !email || !password) {
 
-            await setDoc(
-                doc(db, "users", user.uid),
-                {
-                    name: name,
-                    age: Number(age),
-                    email: email,
-                    createdAt: serverTimestamp()
+                if (message) {
+                    message.style.color = "#dc2626";
+                    message.textContent =
+                        "Please fill in all required fields.";
                 }
-            );
-
-
-            // ==============================
-            // SIGN USER OUT
-            // ==============================
-
-            await signOut(auth);
-
-
-            // ==============================
-            // SUCCESS MESSAGE
-            // ==============================
-
-            message.style.color = "#16a34a";
-
-            message.textContent =
-                "Account created! A verification link has been sent to your email.";
-
-
-            registerForm.reset();
-
-
-            alert(
-                "Account created successfully!\n\n" +
-                "A verification link has been sent to your email.\n\n" +
-                "Please verify your email before logging in."
-            );
-
-
-            // Go back to login
-            setTimeout(() => {
-
-                window.location.href =
-                    "index.html";
-
-            }, 1000);
-
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Registration error:",
-                error
-            );
-
-
-            message.style.color =
-                "#dc2626";
-
-
-            if (
-                error.code ===
-                "auth/email-already-in-use"
-            ) {
-
-                message.textContent =
-                    "This email is already registered.";
-
-            }
-
-
-            else if (
-                error.code ===
-                "auth/weak-password"
-            ) {
-
-                message.textContent =
-                    "Password must be at least 6 characters.";
-
-            }
-
-
-            else if (
-                error.code ===
-                "auth/invalid-email"
-            ) {
-
-                message.textContent =
-                    "Please enter a valid email address.";
-
-            }
-
-
-            else {
-
-                message.textContent =
-                    "Registration failed. Please try again.";
-
-            }
-
-        }
-
-    });
-
-}
-
-
-// ==============================
-// LOGIN
-// ==============================
-
-const loginForm =
-    document.getElementById("loginForm");
-
-
-if (loginForm) {
-
-    loginForm.addEventListener("submit", async (e) => {
-
-        e.preventDefault();
-
-
-        const email =
-            document.getElementById("email")
-                .value
-                .trim();
-
-
-        const password =
-            document.getElementById("password")
-                .value;
-
-
-        const message =
-            document.getElementById("message");
-
-
-        message.style.color =
-            "#6366f1";
-
-
-        message.textContent =
-            "Signing in...";
-
-
-        try {
-
-            // ==============================
-            // LOGIN
-            // ==============================
-
-            const userCredential =
-                await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-
-
-            const user =
-                userCredential.user;
-
-
-            // ==============================
-            // CHECK EMAIL VERIFICATION
-            // ==============================
-
-            await user.reload();
-
-
-            if (!user.emailVerified) {
-
-                await signOut(auth);
-
-
-                message.style.color =
-                    "#dc2626";
-
-
-                message.textContent =
-                    "Please verify your email before logging in.";
-
-
-                alert(
-                    "Your email address has not been verified yet.\n\n" +
-                    "Please check your inbox and click the verification link."
-                );
-
 
                 return;
             }
 
 
-            // ==============================
-            // VERIFIED USER
-            // ==============================
+            if (message) {
 
-            console.log(
-                "Logged in:",
-                user.uid
-            );
-
-
-            message.style.color =
-                "#16a34a";
-
-
-            message.textContent =
-                "Login successful!";
-
-
-            setTimeout(() => {
-
-                window.location.href =
-                    "dashboard.html";
-
-            }, 800);
-
-        }
-
-
-        catch (error) {
-
-            console.error(
-                "Login error:",
-                error
-            );
-
-
-            message.style.color =
-                "#dc2626";
-
-
-            if (
-                error.code ===
-                    "auth/invalid-credential" ||
-                error.code ===
-                    "auth/wrong-password" ||
-                error.code ===
-                    "auth/user-not-found"
-            ) {
+                message.style.color = "#6366f1";
 
                 message.textContent =
-                    "Incorrect email or password.";
-
+                    "Creating your account...";
             }
 
 
-            else {
+            try {
 
-                message.textContent =
-                    "Login failed. Please try again.";
+                // ------------------------------------------------
+                // CREATE AUTH ACCOUNT
+                // ------------------------------------------------
+
+                const userCredential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+                console.log(
+                    "Account created:",
+                    user.uid
+                );
+
+
+                // ------------------------------------------------
+                // SEND EMAIL VERIFICATION
+                // ------------------------------------------------
+
+                await sendEmailVerification(user);
+
+
+                console.log(
+                    "Verification email sent"
+                );
+
+
+                // ------------------------------------------------
+                // CREATE FIRESTORE USER DOCUMENT
+                // ------------------------------------------------
+
+                await setDoc(
+                    doc(
+                        db,
+                        "users",
+                        user.uid
+                    ),
+                    {
+                        name: name,
+                        age: age
+                            ? Number(age)
+                            : null,
+
+                        email: email,
+
+                        createdAt:
+                            serverTimestamp()
+                    }
+                );
+
+
+                console.log(
+                    "User document created"
+                );
+
+
+                // ------------------------------------------------
+                // LOG OUT AFTER REGISTRATION
+                // ------------------------------------------------
+
+                await signOut(auth);
+
+
+                if (message) {
+
+                    message.style.color =
+                        "#16a34a";
+
+                    message.textContent =
+                        "Account created! Please verify your email.";
+                }
+
+
+                alert(
+                    "Account created successfully.\n\n" +
+                    "A verification link has been sent to your email.\n\n" +
+                    "Please verify your email before logging in."
+                );
+
+
+                registerForm.reset();
+
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "index.html";
+
+                    },
+                    500
+                );
 
             }
 
+            catch (error) {
+
+                console.error(
+                    "Registration error:",
+                    error
+                );
+
+
+                if (message) {
+
+                    message.style.color =
+                        "#dc2626";
+
+
+                    switch (error.code) {
+
+                        case "auth/email-already-in-use":
+
+                            message.textContent =
+                                "This email is already registered.";
+
+                            break;
+
+
+                        case "auth/weak-password":
+
+                            message.textContent =
+                                "Password must be at least 6 characters.";
+
+                            break;
+
+
+                        case "auth/invalid-email":
+
+                            message.textContent =
+                                "Please enter a valid email address.";
+
+                            break;
+
+
+                        case "permission-denied":
+
+                            message.textContent =
+                                "Firestore permission denied. Check Firebase Security Rules.";
+
+                            break;
+
+
+                        default:
+
+                            message.textContent =
+                                error.message ||
+                                "Registration failed. Please try again.";
+                    }
+                }
+            }
         }
-
-    });
-
+    );
 }
 
 
-// ==============================
+// ============================================================
+// LOGIN
+// ============================================================
+
+const loginForm =
+    document.getElementById("loginForm");
+
+if (loginForm) {
+
+    loginForm.addEventListener(
+        "submit",
+        async (event) => {
+
+            event.preventDefault();
+
+
+            const emailInput =
+                document.getElementById("email");
+
+            const passwordInput =
+                document.getElementById("password");
+
+            const message =
+                document.getElementById("message");
+
+
+            const email =
+                emailInput
+                    ? emailInput.value.trim()
+                    : "";
+
+            const password =
+                passwordInput
+                    ? passwordInput.value
+                    : "";
+
+
+            if (!email || !password) {
+
+                if (message) {
+
+                    message.style.color =
+                        "#dc2626";
+
+                    message.textContent =
+                        "Please enter your email and password.";
+                }
+
+                return;
+            }
+
+
+            if (message) {
+
+                message.style.color =
+                    "#6366f1";
+
+                message.textContent =
+                    "Signing in...";
+            }
+
+
+            try {
+
+                // ------------------------------------------------
+                // SIGN IN
+                // ------------------------------------------------
+
+                const userCredential =
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+                console.log(
+                    "Login successful:",
+                    user.uid
+                );
+
+
+                // ------------------------------------------------
+                // REFRESH USER
+                // ------------------------------------------------
+
+                await user.reload();
+
+
+                // ------------------------------------------------
+                // EMAIL VERIFICATION CHECK
+                // ------------------------------------------------
+
+                if (!user.emailVerified) {
+
+                    await signOut(auth);
+
+
+                    if (message) {
+
+                        message.style.color =
+                            "#dc2626";
+
+                        message.textContent =
+                            "Please verify your email before logging in.";
+                    }
+
+
+                    alert(
+                        "Your email address has not been verified.\n\n" +
+                        "Please check your inbox and click the verification link."
+                    );
+
+
+                    return;
+                }
+
+
+                // ------------------------------------------------
+                // SUCCESS
+                // ------------------------------------------------
+
+                if (message) {
+
+                    message.style.color =
+                        "#16a34a";
+
+                    message.textContent =
+                        "Login successful!";
+                }
+
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    },
+                    500
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Login error:",
+                    error
+                );
+
+
+                if (message) {
+
+                    message.style.color =
+                        "#dc2626";
+
+
+                    switch (error.code) {
+
+                        case "auth/invalid-credential":
+
+                        case "auth/wrong-password":
+
+                        case "auth/user-not-found":
+
+                            message.textContent =
+                                "Incorrect email or password.";
+
+                            break;
+
+
+                        case "auth/invalid-email":
+
+                            message.textContent =
+                                "Please enter a valid email address.";
+
+                            break;
+
+
+                        case "auth/too-many-requests":
+
+                            message.textContent =
+                                "Too many attempts. Please try again later.";
+
+                            break;
+
+
+                        default:
+
+                            message.textContent =
+                                error.message ||
+                                "Login failed. Please try again.";
+                    }
+                }
+            }
+        }
+    );
+}
+
+
+// ============================================================
 // FORGOT PASSWORD
-// ==============================
+// ============================================================
 
 const forgotPassword =
     document.getElementById("forgotPassword");
-
 
 if (forgotPassword) {
 
     forgotPassword.addEventListener(
         "click",
-        async (e) => {
+        async (event) => {
 
-            e.preventDefault();
+            event.preventDefault();
 
 
             const emailInput =
@@ -422,7 +579,6 @@ if (forgotPassword) {
 
             }
 
-
             catch (error) {
 
                 console.error(
@@ -431,68 +587,58 @@ if (forgotPassword) {
                 );
 
 
-                if (
-                    error.code ===
-                    "auth/invalid-email"
-                ) {
+                switch (error.code) {
 
-                    alert(
-                        "Please enter a valid email address."
-                    );
+                    case "auth/invalid-email":
 
+                        alert(
+                            "Please enter a valid email address."
+                        );
+
+                        break;
+
+
+                    case "auth/user-not-found":
+
+                        alert(
+                            "No account found with this email address."
+                        );
+
+                        break;
+
+
+                    default:
+
+                        alert(
+                            "Unable to send password reset email."
+                        );
                 }
-
-
-                else if (
-                    error.code ===
-                    "auth/user-not-found"
-                ) {
-
-                    alert(
-                        "No account found with this email address."
-                    );
-
-                }
-
-
-                else {
-
-                    alert(
-                        "Unable to send password reset email. Please try again."
-                    );
-
-                }
-
             }
-
         }
     );
-
 }
 
 
-// ==============================
+// ============================================================
 // RESEND VERIFICATION EMAIL
-// ==============================
+// ============================================================
 
 const resendVerification =
     document.getElementById(
         "resendVerification"
     );
 
-
 if (resendVerification) {
 
     resendVerification.addEventListener(
         "click",
-        async (e) => {
+        async (event) => {
 
-            e.preventDefault();
+            event.preventDefault();
 
 
             const emailInput =
                 document.getElementById("email");
-
 
             const passwordInput =
                 document.getElementById("password");
@@ -502,7 +648,6 @@ if (resendVerification) {
                 emailInput
                     ? emailInput.value.trim()
                     : "";
-
 
             const password =
                 passwordInput
@@ -522,7 +667,10 @@ if (resendVerification) {
 
             try {
 
-                // Temporarily sign in
+                // ------------------------------------------------
+                // TEMPORARY SIGN IN
+                // ------------------------------------------------
+
                 const userCredential =
                     await signInWithEmailAndPassword(
                         auth,
@@ -538,7 +686,10 @@ if (resendVerification) {
                 await user.reload();
 
 
-                // Already verified
+                // ------------------------------------------------
+                // ALREADY VERIFIED
+                // ------------------------------------------------
+
                 if (user.emailVerified) {
 
                     alert(
@@ -552,11 +703,17 @@ if (resendVerification) {
                 }
 
 
-                // Send verification email
+                // ------------------------------------------------
+                // SEND VERIFICATION
+                // ------------------------------------------------
+
                 await sendEmailVerification(user);
 
 
-                // Sign out again
+                // ------------------------------------------------
+                // SIGN OUT
+                // ------------------------------------------------
+
                 await signOut(auth);
 
 
@@ -567,7 +724,6 @@ if (resendVerification) {
 
             }
 
-
             catch (error) {
 
                 console.error(
@@ -577,27 +733,23 @@ if (resendVerification) {
 
 
                 alert(
-                    "Unable to resend verification email. " +
+                    "Unable to resend verification email.\n\n" +
                     "Please check your email and password."
                 );
-
             }
-
         }
     );
-
 }
 
 
-// ==============================
+// ============================================================
 // SHOW / HIDE PASSWORD
-// ==============================
+// ============================================================
 
 const togglePassword =
     document.getElementById(
         "togglePassword"
     );
-
 
 if (togglePassword) {
 
@@ -611,6 +763,11 @@ if (togglePassword) {
                 );
 
 
+            if (!password) {
+                return;
+            }
+
+
             if (
                 password.type ===
                 "password"
@@ -619,207 +776,106 @@ if (togglePassword) {
                 password.type =
                     "text";
 
-
                 togglePassword.textContent =
                     "Hide";
 
             }
-
 
             else {
 
                 password.type =
                     "password";
 
-
                 togglePassword.textContent =
                     "Show";
-
             }
-
         }
     );
-
 }
 
 
-// ==============================
-// DASHBOARD USER DATA
-// ==============================
+// ============================================================
+// DASHBOARD ELEMENTS
+// ============================================================
 
-const userNameElement = document.getElementById("userName");
-const userRoleElement = document.getElementById("userRole");
-const welcomeNameElement = document.getElementById("welcomeName");
-const userAvatarElement = document.getElementById("userAvatar");
+const userNameElement =
+    document.getElementById(
+        "userName"
+    );
 
-const profileName = document.getElementById("profileName");
-const profileRole = document.getElementById("profileRole");
-const profileEmail = document.getElementById("profileEmail");
-const profileAge = document.getElementById("profileAge");
-const profileRoleDetail = document.getElementById("profileRoleDetail");
-const profileAvatar = document.getElementById("profileAvatar");
+const userRoleElement =
+    document.getElementById(
+        "userRole"
+    );
 
+const welcomeNameElement =
+    document.getElementById(
+        "welcomeName"
+    );
 
-// ==============================
-// DASHBOARD AUTH
-// ==============================
-
-if (userNameElement) {
-
-    auth.onAuthStateChanged(async (user) => {
-
-        // No user logged in
-        if (!user) {
-            window.location.href = "index.html";
-            return;
-        }
-
-        console.log("Logged in UID:", user.uid);
-
-        try {
-
-            // Get Firestore user document
-            const userRef = doc(db, "users", user.uid);
-            const userSnapshot = await getDoc(userRef);
-
-            if (!userSnapshot.exists()) {
-
-                console.error(
-                    "No Firestore user document found for UID:",
-                    user.uid
-                );
-
-                userNameElement.textContent = "User";
-                welcomeNameElement.textContent = "User";
-
-                if (profileName) {
-                    profileName.textContent = "User";
-                }
-
-                if (profileEmail) {
-                    profileEmail.textContent =
-                        user.email || "Not available";
-                }
-
-                if (profileAge) {
-                    profileAge.textContent = "Not available";
-                }
-
-                if (userAvatarElement) {
-                    userAvatarElement.textContent = "U";
-                }
-
-                if (profileAvatar) {
-                    profileAvatar.textContent = "U";
-                }
-
-                return;
-            }
-
-            // Get Firestore data
-            const userData = userSnapshot.data();
-
-            console.log("User data:", userData);
-
-            const name = userData.name || "User";
-            const email = userData.email || user.email || "Not available";
-            const age = userData.age || "Not available";
-
-            // You removed roles from the project,
-            // so display User instead.
-            const role = "User";
+const userAvatarElement =
+    document.getElementById(
+        "userAvatar"
+    );
 
 
-            // ==============================
-            // NAVBAR
-            // ==============================
+const profileName =
+    document.getElementById(
+        "profileName"
+    );
 
-            if (userNameElement) {
-                userNameElement.textContent = name;
-            }
+const profileRole =
+    document.getElementById(
+        "profileRole"
+    );
 
-            if (userRoleElement) {
-                userRoleElement.textContent = role;
-            }
+const profileEmail =
+    document.getElementById(
+        "profileEmail"
+    );
 
-            if (welcomeNameElement) {
-                welcomeNameElement.textContent = name;
-            }
+const profileAge =
+    document.getElementById(
+        "profileAge"
+    );
 
-            if (userAvatarElement) {
-                userAvatarElement.textContent =
-                    name.charAt(0).toUpperCase();
-            }
+const profileRoleDetail =
+    document.getElementById(
+        "profileRoleDetail"
+    );
 
-
-            // ==============================
-            // PROFILE
-            // ==============================
-
-            if (profileName) {
-                profileName.textContent = name;
-            }
-
-            if (profileEmail) {
-                profileEmail.textContent = email;
-            }
-
-            if (profileAge) {
-                profileAge.textContent = age;
-            }
-
-            if (profileRole) {
-                profileRole.textContent = "User";
-            }
-
-            if (profileRoleDetail) {
-                profileRoleDetail.textContent = "User";
-            }
-
-            if (profileAvatar) {
-                profileAvatar.textContent =
-                    name.charAt(0).toUpperCase();
-            }
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Error fetching user data:",
-                error
-            );
-
-            // Don't leave the page permanently showing Loading...
-            userNameElement.textContent = "Unable to load";
-            welcomeNameElement.textContent = "User";
-
-            if (profileName) {
-                profileName.textContent = "Unable to load";
-            }
-
-        }
-
-    });
-
-}
+const profileAvatar =
+    document.getElementById(
+        "profileAvatar"
+    );
 
 
-// ==============================
-// DASHBOARD AUTH CHECK
-// ==============================
+// ============================================================
+// LOAD DASHBOARD USER
+// ============================================================
 
 if (userNameElement) {
 
-    auth.onAuthStateChanged(
+    console.log(
+        "Dashboard detected. Waiting for Firebase user..."
+    );
+
+
+    onAuthStateChanged(
+        auth,
         async (user) => {
 
-            // ==============================
+            // ------------------------------------------------
             // NO USER
-            // ==============================
+            // ------------------------------------------------
 
             if (!user) {
 
+                console.log(
+                    "No authenticated user."
+                );
+
+
                 window.location.href =
                     "index.html";
 
@@ -827,29 +883,61 @@ if (userNameElement) {
             }
 
 
-            // ==============================
-            // CHECK EMAIL VERIFICATION
-            // ==============================
-
-            await user.reload();
-
-
-            if (!user.emailVerified) {
-
-                await signOut(auth);
-
-                window.location.href =
-                    "index.html";
-
-                return;
-            }
+            console.log(
+                "Authenticated UID:",
+                user.uid
+            );
 
 
             try {
 
-                // ==============================
-                // GET USER DATA
-                // ==============================
+                // ------------------------------------------------
+                // REFRESH AUTH USER
+                // ------------------------------------------------
+
+                await user.reload();
+
+
+                // ------------------------------------------------
+                // EMAIL VERIFICATION
+                // ------------------------------------------------
+
+                if (!user.emailVerified) {
+
+                    console.log(
+                        "Email is not verified."
+                    );
+
+
+                    await signOut(auth);
+
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+                }
+
+
+                // ------------------------------------------------
+                // DEFAULT VALUES
+                // ------------------------------------------------
+
+                let name =
+                    user.displayName ||
+                    "User";
+
+                let email =
+                    user.email ||
+                    "Not available";
+
+                let age =
+                    "Not available";
+
+
+                // ------------------------------------------------
+                // GET FIRESTORE USER DOCUMENT
+                // ------------------------------------------------
 
                 const userRef =
                     doc(
@@ -859,163 +947,293 @@ if (userNameElement) {
                     );
 
 
+                console.log(
+                    "Reading Firestore:",
+                    `users/${user.uid}`
+                );
+
+
                 const userSnapshot =
                     await getDoc(userRef);
 
 
-                if (
-                    userSnapshot.exists()
-                ) {
+                // ------------------------------------------------
+                // FIRESTORE DOCUMENT EXISTS
+                // ------------------------------------------------
+
+                if (userSnapshot.exists()) {
 
                     const userData =
                         userSnapshot.data();
 
 
                     console.log(
-                        "User data:",
+                        "Firestore user data:",
                         userData
                     );
 
 
-                    const name =
+                    name =
                         userData.name ||
                         "User";
 
 
-                    const email =
+                    email =
                         userData.email ||
                         user.email ||
                         "Not available";
 
 
-                    const age =
-                        userData.age ||
-                        "Not available";
-
-
-                    // ==============================
-                    // DASHBOARD NAME
-                    // ==============================
-
-                    if (
-                        userNameElement
-                    ) {
-
-                        userNameElement.textContent =
-                            name;
-
-                    }
-
-
-                    if (
-                        welcomeNameElement
-                    ) {
-
-                        welcomeNameElement.textContent =
-                            name;
-
-                    }
-
-
-                    // ==============================
-                    // AVATAR
-                    // ==============================
-
-                    if (
-                        userAvatarElement
-                    ) {
-
-                        userAvatarElement.textContent =
-                            name
-                                .charAt(0)
-                                .toUpperCase();
-
-                    }
-
-
-                    // ==============================
-                    // PROFILE
-                    // ==============================
-
-                    if (
-                        profileName
-                    ) {
-
-                        profileName.textContent =
-                            name;
-
-                    }
-
-
-                    if (
-                        profileEmail
-                    ) {
-
-                        profileEmail.textContent =
-                            email;
-
-                    }
-
-
-                    if (
-                        profileAge
-                    ) {
-
-                        profileAge.textContent =
-                            age;
-
-                    }
-
-
-                    if (
-                        profileAvatar
-                    ) {
-
-                        profileAvatar.textContent =
-                            name
-                                .charAt(0)
-                                .toUpperCase();
-
-                    }
-
+                    age =
+                        userData.age !== undefined &&
+                        userData.age !== null
+                            ? userData.age
+                            : "Not available";
                 }
 
+
+                // ------------------------------------------------
+                // DOCUMENT DOES NOT EXIST
+                // ------------------------------------------------
 
                 else {
 
-                    console.log(
-                        "User document does not exist."
+                    console.warn(
+                        "No Firestore document found for UID:",
+                        user.uid
                     );
 
+
+                    // Authentication data is still usable
+
+                    name =
+                        user.displayName ||
+                        "User";
+
+                    email =
+                        user.email ||
+                        "Not available";
                 }
 
-            }
+
+                // =================================================
+                // UPDATE NAVBAR
+                // =================================================
+
+                if (userNameElement) {
+
+                    userNameElement.textContent =
+                        name;
+                }
 
 
-            catch (error) {
+                if (userRoleElement) {
 
-                console.error(
-                    "Error fetching user data:",
-                    error
+                    userRoleElement.textContent =
+                        "User";
+                }
+
+
+                if (welcomeNameElement) {
+
+                    welcomeNameElement.textContent =
+                        name;
+                }
+
+
+                // =================================================
+                // AVATAR
+                // =================================================
+
+                const firstLetter =
+                    name
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                if (userAvatarElement) {
+
+                    userAvatarElement.textContent =
+                        firstLetter;
+                }
+
+
+                if (profileAvatar) {
+
+                    profileAvatar.textContent =
+                        firstLetter;
+                }
+
+
+                // =================================================
+                // PROFILE
+                // =================================================
+
+                if (profileName) {
+
+                    profileName.textContent =
+                        name;
+                }
+
+
+                if (profileEmail) {
+
+                    profileEmail.textContent =
+                        email;
+                }
+
+
+                if (profileAge) {
+
+                    profileAge.textContent =
+                        age;
+                }
+
+
+                // Project has only one user type
+
+                if (profileRole) {
+
+                    profileRole.textContent =
+                        "User";
+                }
+
+
+                if (profileRoleDetail) {
+
+                    profileRoleDetail.textContent =
+                        "User";
+                }
+
+
+                console.log(
+                    "Dashboard data loaded successfully."
                 );
 
             }
 
+            catch (error) {
+
+                console.error(
+                    "FIRESTORE/DASHBOARD ERROR:",
+                    error
+                );
+
+
+                // =================================================
+                // FALLBACK
+                // =================================================
+
+                const fallbackName =
+                    user.displayName ||
+                    "User";
+
+
+                if (userNameElement) {
+
+                    userNameElement.textContent =
+                        fallbackName;
+                }
+
+
+                if (welcomeNameElement) {
+
+                    welcomeNameElement.textContent =
+                        fallbackName;
+                }
+
+
+                if (profileName) {
+
+                    profileName.textContent =
+                        fallbackName;
+                }
+
+
+                if (profileEmail) {
+
+                    profileEmail.textContent =
+                        user.email ||
+                        "Not available";
+                }
+
+
+                if (profileAge) {
+
+                    profileAge.textContent =
+                        "Unable to load";
+                }
+
+
+                if (userRoleElement) {
+
+                    userRoleElement.textContent =
+                        "User";
+                }
+
+
+                if (profileRole) {
+
+                    profileRole.textContent =
+                        "User";
+                }
+
+
+                if (profileRoleDetail) {
+
+                    profileRoleDetail.textContent =
+                        "User";
+                }
+
+
+                const firstLetter =
+                    fallbackName
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                if (userAvatarElement) {
+
+                    userAvatarElement.textContent =
+                        firstLetter;
+                }
+
+
+                if (profileAvatar) {
+
+                    profileAvatar.textContent =
+                        firstLetter;
+                }
+
+
+                // ------------------------------------------------
+                // IMPORTANT ERROR MESSAGE
+                // ------------------------------------------------
+
+                if (
+                    error.code ===
+                    "permission-denied"
+                ) {
+
+                    console.error(
+                        "Firestore permission denied. " +
+                        "Check Firestore Security Rules."
+                    );
+                }
+            }
         }
     );
-
 }
 
 
-// ==============================
+// ============================================================
 // LOGOUT
-// ==============================
+// ============================================================
 
 const logoutButton =
     document.getElementById(
         "logoutButton"
     );
-
 
 if (logoutButton) {
 
@@ -1025,14 +1243,23 @@ if (logoutButton) {
 
             try {
 
+                console.log(
+                    "Logging out..."
+                );
+
+
                 await signOut(auth);
+
+
+                console.log(
+                    "Logout successful"
+                );
 
 
                 window.location.href =
                     "index.html";
 
             }
-
 
             catch (error) {
 
@@ -1045,10 +1272,7 @@ if (logoutButton) {
                 alert(
                     "Unable to logout. Please try again."
                 );
-
             }
-
         }
     );
-
 }
