@@ -647,50 +647,162 @@ if (togglePassword) {
 // DASHBOARD USER DATA
 // ==============================
 
-const userNameElement =
-    document.getElementById(
-        "userName"
-    );
+const userNameElement = document.getElementById("userName");
+const userRoleElement = document.getElementById("userRole");
+const welcomeNameElement = document.getElementById("welcomeName");
+const userAvatarElement = document.getElementById("userAvatar");
 
-
-const welcomeNameElement =
-    document.getElementById(
-        "welcomeName"
-    );
-
-
-const userAvatarElement =
-    document.getElementById(
-        "userAvatar"
-    );
+const profileName = document.getElementById("profileName");
+const profileRole = document.getElementById("profileRole");
+const profileEmail = document.getElementById("profileEmail");
+const profileAge = document.getElementById("profileAge");
+const profileRoleDetail = document.getElementById("profileRoleDetail");
+const profileAvatar = document.getElementById("profileAvatar");
 
 
 // ==============================
-// PROFILE ELEMENTS
+// DASHBOARD AUTH
 // ==============================
 
-const profileName =
-    document.getElementById(
-        "profileName"
-    );
+if (userNameElement) {
+
+    auth.onAuthStateChanged(async (user) => {
+
+        // No user logged in
+        if (!user) {
+            window.location.href = "index.html";
+            return;
+        }
+
+        console.log("Logged in UID:", user.uid);
+
+        try {
+
+            // Get Firestore user document
+            const userRef = doc(db, "users", user.uid);
+            const userSnapshot = await getDoc(userRef);
+
+            if (!userSnapshot.exists()) {
+
+                console.error(
+                    "No Firestore user document found for UID:",
+                    user.uid
+                );
+
+                userNameElement.textContent = "User";
+                welcomeNameElement.textContent = "User";
+
+                if (profileName) {
+                    profileName.textContent = "User";
+                }
+
+                if (profileEmail) {
+                    profileEmail.textContent =
+                        user.email || "Not available";
+                }
+
+                if (profileAge) {
+                    profileAge.textContent = "Not available";
+                }
+
+                if (userAvatarElement) {
+                    userAvatarElement.textContent = "U";
+                }
+
+                if (profileAvatar) {
+                    profileAvatar.textContent = "U";
+                }
+
+                return;
+            }
+
+            // Get Firestore data
+            const userData = userSnapshot.data();
+
+            console.log("User data:", userData);
+
+            const name = userData.name || "User";
+            const email = userData.email || user.email || "Not available";
+            const age = userData.age || "Not available";
+
+            // You removed roles from the project,
+            // so display User instead.
+            const role = "User";
 
 
-const profileEmail =
-    document.getElementById(
-        "profileEmail"
-    );
+            // ==============================
+            // NAVBAR
+            // ==============================
+
+            if (userNameElement) {
+                userNameElement.textContent = name;
+            }
+
+            if (userRoleElement) {
+                userRoleElement.textContent = role;
+            }
+
+            if (welcomeNameElement) {
+                welcomeNameElement.textContent = name;
+            }
+
+            if (userAvatarElement) {
+                userAvatarElement.textContent =
+                    name.charAt(0).toUpperCase();
+            }
 
 
-const profileAge =
-    document.getElementById(
-        "profileAge"
-    );
+            // ==============================
+            // PROFILE
+            // ==============================
 
+            if (profileName) {
+                profileName.textContent = name;
+            }
 
-const profileAvatar =
-    document.getElementById(
-        "profileAvatar"
-    );
+            if (profileEmail) {
+                profileEmail.textContent = email;
+            }
+
+            if (profileAge) {
+                profileAge.textContent = age;
+            }
+
+            if (profileRole) {
+                profileRole.textContent = "User";
+            }
+
+            if (profileRoleDetail) {
+                profileRoleDetail.textContent = "User";
+            }
+
+            if (profileAvatar) {
+                profileAvatar.textContent =
+                    name.charAt(0).toUpperCase();
+            }
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Error fetching user data:",
+                error
+            );
+
+            // Don't leave the page permanently showing Loading...
+            userNameElement.textContent = "Unable to load";
+            welcomeNameElement.textContent = "User";
+
+            if (profileName) {
+                profileName.textContent = "Unable to load";
+            }
+
+        }
+
+    });
+
+}
 
 
 // ==============================
