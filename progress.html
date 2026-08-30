@@ -777,22 +777,19 @@
                 Recent Games
             </h2>
 
-            <span>
-                All Activities
-            </span>
-
+         
+            
+        <div
+            class="loading"
+            id="loading"
+        >
+        </div>
         </div>
 
 
 
         <!-- LOADING -->
 
-        <div
-            class="loading"
-            id="loading"
-        >
-            Loading your progress...
-        </div>
 
 
 
@@ -850,19 +847,12 @@
         >
 
             <div class="empty-icon">
-                🧠
             </div>
 
 
-            <h3>
-                No games completed yet
-            </h3>
 
 
-            <p>
-                Complete a cognitive game
-                to start tracking your progress.
-            </p>
+          
 
         </div>
 
@@ -1064,21 +1054,7 @@ const firebaseConfig = {
                 );
 
 
-            /*
-             * IMPORTANT:
-             *
-             * We only filter by userId.
-             *
-             * We DO NOT filter by game.
-             *
-             * Therefore:
-             *
-             * Memory Recall
-             * Sequence Recall
-             * Future games
-             *
-             * can all appear here.
-             */
+         
 
             const q =
                 query(
@@ -1346,7 +1322,7 @@ const firebaseConfig = {
             /* ================= SHOW LATEST 10 ================= */
 
             results
-                .slice(0, 10)
+                .slice(0, 5)
                 .forEach(
                     (game) => {
 
