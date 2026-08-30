@@ -1715,3 +1715,8 @@ body {
 a.card-button {
     text-decoration: none !important;
 }
+.card-button {
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
