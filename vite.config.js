@@ -1,17 +1,29 @@
-const { defineConfig } = require("vite");
-const { resolve } = require("path");
+import { defineConfig } from "vite";
+import { resolve } from "path";
 
-module.exports = defineConfig({
+export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                index: resolve(__dirname, "index.html"),
-                register: resolve(__dirname, "register.html"),
-                dashboard: resolve(__dirname, "dashboard.html"),
-                progress: resolve(__dirname, "progress.html"),
-                reminder: resolve(__dirname, "reminder.html"),
-                memoryGame: resolve(__dirname, "memory-game.html"),
-                sequenceGame: resolve(__dirname, "sequence-game.html")
+                main: resolve(__dirname, "index.html"),
+
+                dashboard:
+                    resolve(__dirname, "dashboard.html"),
+
+                progress:
+                    resolve(__dirname, "progress.html"),
+
+                memoryGame:
+                    resolve(__dirname, "memory-game.html"),
+
+                sequenceGame:
+                    resolve(__dirname, "sequence-game.html"),
+
+                matchingGame:
+                    resolve(__dirname, "matching-game.html"),
+
+                reminder:
+                    resolve(__dirname, "reminder.html")
             }
         }
     }
