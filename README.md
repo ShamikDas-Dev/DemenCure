@@ -141,3 +141,14 @@ DemenCure-Web/
 ├── package-lock.json
 ├── .gitignore
 └── README.md
+
+## Author
+
+**Shamik Das**
+
+- B.Tech Computer Science & Technology
+- Adamas University
+
+---
+
+If you find this repository helpful, consider giving it a ⭐.
