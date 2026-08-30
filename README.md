@@ -6,7 +6,7 @@ DemenCure is a web-based cognitive care platform designed to provide users with 
 
 The platform combines a clean user interface with Firebase Authentication and Cloud Firestore to provide authenticated user accounts and persistent user data.
 
-🔗 **Live Demo:** https://demencure.vercel.app/
+🔗 **Live link:** https://demencure.vercel.app/
 
 🔗 **GitHub Repository:** https://github.com/ShamikDas-Dev/DemenCure
 
