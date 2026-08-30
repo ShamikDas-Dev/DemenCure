@@ -1,9 +1,17 @@
+# Environment variables
 .env
 .env.local
 .env.*.local
 
+# Dependencies
 node_modules/
+
+# Vercel
 .vercel/
 
+# Vite production build
+dist/
+
+# OS files
 .DS_Store
 Thumbs.db
