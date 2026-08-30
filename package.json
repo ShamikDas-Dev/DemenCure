@@ -10,17 +10,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ShamikDas-Dev/DemenCure-Web.git"
+    "url": "git+https://github.com/ShamikDas-Dev/DemenCure.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
-    "url": "https://github.com/ShamikDas-Dev/DemenCure-Web/issues"
+    "url": "https://github.com/ShamikDas-Dev/DemenCure/issues"
   },
-  "homepage": "https://github.com/ShamikDas-Dev/DemenCure-Web#readme",
+  "homepage": "https://github.com/ShamikDas-Dev/DemenCure#readme",
   "devDependencies": {
-    "vite": "^8.2.2"
+    "vite": "8.2.2"
   }
 }
